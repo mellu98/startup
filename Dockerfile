@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS deps
+FROM node:20-bookworm AS deps
 WORKDIR /app
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -14,12 +14,13 @@ ENV NODE_GYP_FORCE_PYTHON=/usr/bin/python3
 COPY package.json ./
 RUN npm install --no-audit --no-fund
 
-FROM node:20-bookworm-slim AS builder
+FROM node:20-bookworm AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS=--max-old-space-size=512
+ENV GENERATE_SOURCEMAP=false
+ENV NODE_OPTIONS=--max-old-space-size=384
 RUN npm run build
 
 FROM node:20-bookworm-slim AS runner
