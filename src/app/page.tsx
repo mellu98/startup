@@ -2,6 +2,7 @@ import Link from "next/link";
 import { readState, type PhaseStatus } from "@/lib/state";
 import { PHASES } from "@/lib/phases";
 import DataRoomButton from "@/components/DataRoomButton";
+import IdeaValidator from "@/components/IdeaValidator";
 
 function statusBadge(status: PhaseStatus) {
   switch (status) {
@@ -88,6 +89,10 @@ export default async function Home() {
             <strong>Memoria totale</strong> — l&apos;AI ricorda tutto ciò che hai detto nelle fasi precedenti. Nessuna informazione si perde.
           </li>
         </ul>
+      </div>
+
+      <div className="mb-10">
+        <IdeaValidator />
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
