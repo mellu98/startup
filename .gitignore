@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project-specific — generated / local-only
+/data/*.sqlite*
+/data/*.sqlite-shm
+/data/*.sqlite-wal
+/data/state.json.backup
+/data/skills-index.json
+/test.pdf
+/test-pdf.html
+/.atl/
+/content/
