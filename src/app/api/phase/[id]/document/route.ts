@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { getPhase, readState, getPreviousPhases } from "@/lib/state";
-import { openrouter, assertApiKey } from "@/lib/openrouter";
+import { getOpenRouter, assertApiKey } from "@/lib/openrouter";
 import { formatContextSnapshot, stripThinkTags, sanitizeMojibake } from "@/lib/ai-utils";
 import { runQualityGate } from "@/lib/quality-gate";
 import {
@@ -79,7 +79,7 @@ export async function POST(
     const criticModel = process.env.OPENROUTER_MODEL_CRITIC ?? primaryModel;
     const threshold = Number(process.env.QUALITY_GATE_THRESHOLD ?? 75);
 
-    const completion = await openrouter.chat.completions.create({
+    const completion = await getOpenRouter().chat.completions.create({
       model: primaryModel,
       messages,
       stream: false,
@@ -88,7 +88,7 @@ export async function POST(
     const document = completion.choices[0]?.message?.content ?? "";
     const cleanDocument = sanitizeMojibake(stripThinkTags(document));
     const quality = await runQualityGate({
-      client: openrouter,
+      client: getOpenRouter(),
       phaseId: id,
       document: cleanDocument,
       conversation: messages[1].content,

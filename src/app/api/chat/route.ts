@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { getPhase, updatePhase, readState, getPreviousPhases } from "@/lib/state";
 import { getSkillContent } from "@/lib/skills";
 import { getPhase as getPhaseMeta } from "@/lib/phases";
-import { openrouter, assertApiKey } from "@/lib/openrouter";
+import { getOpenRouter, assertApiKey } from "@/lib/openrouter";
 import { formatContextSnapshot, stripThinkTags, sanitizeMojibake, createStreamThinkFilter } from "@/lib/ai-utils";
 import {
   chatRequestSchema,
@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
       { role: "user", content: message },
     ];
 
-    const stream = await openrouter.chat.completions.create({
+    const stream = await getOpenRouter().chat.completions.create({
       model: "deepseek/deepseek-v4-pro",
       messages,
       stream: true,

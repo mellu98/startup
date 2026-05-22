@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { getPhase, updatePhase, unlockNextPhase } from "@/lib/state";
-import { openrouter, assertApiKey } from "@/lib/openrouter";
+import { getOpenRouter, assertApiKey } from "@/lib/openrouter";
 import { stripThinkTags, sanitizeMojibake } from "@/lib/ai-utils";
 import {
   completePhaseRequestSchema,
@@ -43,7 +43,7 @@ export async function POST(
     // Genera context snapshot JSON dal documento
     let contextSnapshot: Record<string, unknown> | null = null;
     try {
-      const extraction = await openrouter.chat.completions.create({
+      const extraction = await getOpenRouter().chat.completions.create({
         model: "deepseek/deepseek-v4-pro",
         messages: [
           {
