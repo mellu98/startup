@@ -42,5 +42,6 @@ COPY --from=builder /app/build.log ./build.log
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY diag-server.js ./diag-server.js
 EXPOSE 3000
-CMD ["sh", "-c", "if [ -f server.js ]; then node server.js; else echo '=== NPM INSTALL LOG ==='; cat npm-install.log; echo '=== BUILD LOG ==='; cat build.log; fi"]
+CMD ["sh", "-c", "if [ -f server.js ]; then node server.js; else node diag-server.js; fi"]
