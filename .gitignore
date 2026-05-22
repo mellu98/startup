@@ -45,8 +45,6 @@ next-env.d.ts
 /data/*.sqlite-shm
 /data/*.sqlite-wal
 /data/state.json.backup
-/data/skills-index.json
 /test.pdf
 /test-pdf.html
 /.atl/
-/content/
