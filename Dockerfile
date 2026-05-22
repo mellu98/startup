@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV NODE_GYP_FORCE_PYTHON=/usr/bin/python3
 COPY package.json ./
 RUN npm install --no-audit --no-fund 2>&1 | tee npm-install.log || true
+RUN mkdir -p /app/node_modules
 
 FROM node:20-bookworm AS builder
 WORKDIR /app
@@ -23,6 +24,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV GENERATE_SOURCEMAP=false
 ENV NODE_OPTIONS=--max-old-space-size=384
 RUN npm run build 2>&1 | tee build.log || true
+RUN mkdir -p /app/.next/standalone /app/.next/static /app/public
 
 FROM node:20-bookworm-slim AS runner
 WORKDIR /app
