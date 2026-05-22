@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getOpenRouter, assertApiKey } from "@/lib/openrouter";
 import { stripThinkTags, sanitizeMojibake } from "@/lib/ai-utils";
 import { internalErrorResponse, parseJsonRequest } from "@/lib/api-validation";
+import { saveValidation } from "@/lib/validation";
 import { z } from "zod";
 
 const validateIdeaSchema = z.object({
@@ -61,6 +62,8 @@ Regole:
     const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
     const jsonStr = jsonMatch ? jsonMatch[0] : "{}";
     const result = JSON.parse(jsonStr);
+
+    saveValidation(idea, result);
 
     return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" },

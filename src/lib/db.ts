@@ -46,6 +46,13 @@ function initSchema(database: Database.Database) {
       industry_tagline TEXT NOT NULL DEFAULT '',
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS idea_validation (
+      id INTEGER PRIMARY KEY CHECK (id = 1),
+      idea_text TEXT NOT NULL DEFAULT '',
+      initial_scorecard TEXT NOT NULL DEFAULT '{}',
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 }
 

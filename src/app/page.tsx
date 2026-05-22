@@ -59,6 +59,12 @@ export default async function Home() {
           </div>
           <div className="flex gap-3">
             <Link
+              href="/validation"
+              className="rounded-md border border-zinc-300 px-5 py-2 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            >
+              Stato di validazione
+            </Link>
+            <Link
               href="/settings"
               className="rounded-md border border-zinc-300 px-5 py-2 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
             >
