@@ -5,6 +5,8 @@ import { getPhase as getPhaseMeta } from "@/lib/phases";
 import PhaseWorkspace from "@/components/PhaseWorkspace";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 interface PhasePageProps {
   params: Promise<{ id: string }>;
 }

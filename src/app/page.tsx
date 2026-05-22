@@ -32,6 +32,8 @@ function statusBadge(status: PhaseStatus) {
   }
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const state = await readState();
   const phaseMap = new Map(state.phases.map((p) => [p.id, p]));
