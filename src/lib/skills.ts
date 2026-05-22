@@ -19,7 +19,7 @@ export type SkillContent = {
 };
 
 export function getSkills(): SkillMeta[] {
-  const indexPath = path.join(process.cwd(), "data", "skills-index.json");
+  const indexPath = path.join(process.cwd(), "skills-index.json");
   const raw = fs.readFileSync(indexPath, "utf-8");
   return JSON.parse(raw) as SkillMeta[];
 }

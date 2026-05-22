@@ -72,7 +72,7 @@ for (const domain of domains) {
 }
 
 fs.writeFileSync(
-  path.join(DATA_DIR, 'skills-index.json'),
+  path.join(__dirname, '..', 'skills-index.json'),
   JSON.stringify(skillsIndex, null, 2)
 );
 

@@ -35,6 +35,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 RUN mkdir -p /app/data
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/content ./content
+COPY --from=builder /app/skills-index.json ./skills-index.json
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 EXPOSE 3000
