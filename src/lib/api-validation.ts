@@ -119,17 +119,3 @@ export function validateParams<T>(
   return validateInput(params, schema);
 }
 
-export function requireDocumentGenerationToken(req: Request): NextResponse | null {
-  const expected = process.env.DOCUMENT_GENERATION_TOKEN?.trim();
-  if (!expected) return null;
-
-  const explicitToken = req.headers.get("x-document-generation-token")?.trim();
-  const authorization = req.headers.get("authorization")?.trim();
-  const bearerToken = authorization?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
-
-  if (explicitToken === expected || bearerToken === expected) {
-    return null;
-  }
-
-  return unauthorizedResponse();
-}

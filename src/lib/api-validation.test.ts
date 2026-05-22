@@ -5,7 +5,6 @@ import {
   parseJsonRequest,
   pdfRequestSchema,
   phaseParamsSchema,
-  requireDocumentGenerationToken,
   validateParams,
 } from "./api-validation";
 
@@ -146,52 +145,3 @@ describe("parseJsonRequest", () => {
   });
 });
 
-describe("requireDocumentGenerationToken", () => {
-  it("does nothing when DOCUMENT_GENERATION_TOKEN is not configured", () => {
-    vi.stubEnv("DOCUMENT_GENERATION_TOKEN", "");
-
-    expect(requireDocumentGenerationToken(new Request("http://localhost"))).toBeNull();
-
-    vi.unstubAllEnvs();
-  });
-
-  it("returns 401 when the shared secret is missing or wrong", async () => {
-    vi.stubEnv("DOCUMENT_GENERATION_TOKEN", "secret");
-
-    const missing = requireDocumentGenerationToken(new Request("http://localhost"));
-    const wrong = requireDocumentGenerationToken(
-      new Request("http://localhost", {
-        headers: { "x-document-generation-token": "wrong" },
-      })
-    );
-
-    expect(missing?.status).toBe(401);
-    expect(wrong?.status).toBe(401);
-    await expect(readJson(missing as Response)).resolves.toEqual({
-      error: "Non autorizzato",
-    });
-
-    vi.unstubAllEnvs();
-  });
-
-  it("accepts the shared secret as a bearer token or explicit header", () => {
-    vi.stubEnv("DOCUMENT_GENERATION_TOKEN", "secret");
-
-    expect(
-      requireDocumentGenerationToken(
-        new Request("http://localhost", {
-          headers: { Authorization: "Bearer secret" },
-        })
-      )
-    ).toBeNull();
-    expect(
-      requireDocumentGenerationToken(
-        new Request("http://localhost", {
-          headers: { "x-document-generation-token": "secret" },
-        })
-      )
-    ).toBeNull();
-
-    vi.unstubAllEnvs();
-  });
-});

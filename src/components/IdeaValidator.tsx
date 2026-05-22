@@ -90,7 +90,7 @@ export default function IdeaValidator() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            className="rounded-md bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 min-h-[44px] active:scale-[0.98]"
           >
             {loading ? "Valutazione in corso..." : "Valida idea"}
           </button>
@@ -173,13 +173,13 @@ export default function IdeaValidator() {
                 setResult(null);
                 setIdea("");
               }}
-              className="rounded-md border border-zinc-300 px-5 py-2 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              className="rounded-md border border-zinc-300 px-5 py-2 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800 min-h-[44px] active:scale-[0.98]"
             >
               Valuta un&apos;altra idea
             </button>
             <Link
               href="/phase/intake"
-              className="rounded-md bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="inline-flex items-center justify-center rounded-md bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 min-h-[44px] active:scale-[0.98]"
             >
               Inizia il processo →
             </Link>

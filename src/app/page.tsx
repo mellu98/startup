@@ -8,25 +8,25 @@ function statusBadge(status: PhaseStatus) {
   switch (status) {
     case "completed":
       return (
-        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
+        <span className="inline-flex items-center justify-center rounded-full bg-green-100 px-3 py-1.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
           Completata
         </span>
       );
     case "in_progress":
       return (
-        <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+        <span className="inline-flex items-center justify-center rounded-full bg-blue-100 px-3 py-1.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
           In corso
         </span>
       );
     case "unlocked":
       return (
-        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+        <span className="inline-flex items-center justify-center rounded-full bg-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
           Da iniziare
         </span>
       );
     case "locked":
       return (
-        <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900/30 dark:text-red-400">
+        <span className="inline-flex items-center justify-center rounded-full bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700 dark:bg-red-900/30 dark:text-red-400">
           Bloccata
         </span>
       );
@@ -117,7 +117,7 @@ export default async function Home() {
             >
               <div>
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 text-sm font-semibold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-sm font-semibold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                     {idx + 1}
                   </span>
                   {statusBadge(pState?.status ?? "locked")}
@@ -149,7 +149,7 @@ export default async function Home() {
                 ) : (
                   <Link
                     href={`/phase/${phase.id}`}
-                    className="text-sm font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                    className="inline-flex items-center text-sm font-medium text-zinc-900 hover:underline dark:text-zinc-100 min-h-[44px]"
                   >
                     {pState?.status === "completed"
                       ? "Rivedi fase →"

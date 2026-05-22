@@ -6,7 +6,6 @@ import { runQualityGate } from "@/lib/quality-gate";
 import {
   internalErrorResponse,
   phaseParamsSchema,
-  requireDocumentGenerationToken,
   validateParams,
 } from "@/lib/api-validation";
 
@@ -20,9 +19,6 @@ export async function POST(
   try {
     const routeParams = validateParams(await params, phaseParamsSchema);
     if (!routeParams.success) return routeParams.response;
-
-    const unauthorized = requireDocumentGenerationToken(req);
-    if (unauthorized) return unauthorized;
 
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
     const now = Date.now();

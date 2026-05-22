@@ -7,15 +7,17 @@ const getPhase = vi.fn();
 const readState = vi.fn();
 const updatePhase = vi.fn();
 
-vi.mock("@/lib/openrouter", () => ({
-  assertApiKey,
-  openrouter: {
-    chat: {
-      completions: {
-        create: createCompletion,
-      },
+const mockClient = {
+  chat: {
+    completions: {
+      create: createCompletion,
     },
   },
+};
+
+vi.mock("@/lib/openrouter", () => ({
+  assertApiKey,
+  getOpenRouter: () => mockClient,
 }));
 
 vi.mock("@/lib/state", () => ({

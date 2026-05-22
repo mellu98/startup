@@ -25,6 +25,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Accessibility: visible focus rings */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 /* Markdown content styles (replaces @tailwindcss/typography) */
 .prose h1,
 .prose h2,

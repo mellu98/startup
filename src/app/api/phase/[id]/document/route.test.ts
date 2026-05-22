@@ -6,15 +6,17 @@ const createCompletion = vi.fn();
 const getPhase = vi.fn();
 const readState = vi.fn();
 
-vi.mock("@/lib/openrouter", () => ({
-  assertApiKey,
-  openrouter: {
-    chat: {
-      completions: {
-        create: createCompletion,
-      },
+const mockClient = {
+  chat: {
+    completions: {
+      create: createCompletion,
     },
   },
+};
+
+vi.mock("@/lib/openrouter", () => ({
+  assertApiKey,
+  getOpenRouter: () => mockClient,
 }));
 
 vi.mock("@/lib/state", () => ({
@@ -71,29 +73,12 @@ describe("POST /api/phase/[id]/document", () => {
     expect(assertApiKey).not.toHaveBeenCalled();
   });
 
-  it("returns 401 when document generation token is configured and missing", async () => {
-    vi.stubEnv("DOCUMENT_GENERATION_TOKEN", "secret");
+  it("returns the generated document when params are valid", async () => {
     const { POST } = await import("./route");
 
     const res = await POST(postRequest(), {
       params: Promise.resolve({ id: "intake" }),
     });
-
-    expect(res.status).toBe(401);
-    await expect(res.json()).resolves.toEqual({ error: "Non autorizzato" });
-    expect(assertApiKey).not.toHaveBeenCalled();
-  });
-
-  it("returns the generated document when params and auth are valid", async () => {
-    vi.stubEnv("DOCUMENT_GENERATION_TOKEN", "secret");
-    const { POST } = await import("./route");
-
-    const res = await POST(
-      postRequest({ "x-document-generation-token": "secret" }),
-      {
-        params: Promise.resolve({ id: "intake" }),
-      }
-    );
 
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toMatchObject({ document: "# Documento" });

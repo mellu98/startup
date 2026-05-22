@@ -41,12 +41,8 @@ export default function PhaseWorkspace({
   const handleGenerateDocument = async () => {
     setGeneratingDoc(true);
     try {
-      const documentToken = process.env.NEXT_PUBLIC_DOCUMENT_GENERATION_TOKEN;
       const res = await fetch(`/api/phase/${phaseId}/document`, {
         method: "POST",
-        headers: documentToken
-          ? { "x-document-generation-token": documentToken }
-          : undefined,
       });
       const data = await res.json();
       if (data.document) {
