@@ -1,10 +1,12 @@
 FROM node:20-bookworm-slim AS deps
 WORKDIR /app
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
+    build-essential \
     python3 \
-    make \
-    g++ \
+    pkg-config \
   && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json ./
 RUN npm ci
