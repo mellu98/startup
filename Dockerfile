@@ -6,10 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     build-essential \
     python3 \
+    python3-setuptools \
     pkg-config \
   && rm -rf /var/lib/apt/lists/*
+ENV NODE_GYP_FORCE_PYTHON=/usr/bin/python3
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install -g node-gyp@latest && npm ci
 
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
