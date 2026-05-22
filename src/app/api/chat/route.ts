@@ -167,6 +167,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: unknown) {
     console.error("Chat API error:", err);
-    return internalErrorResponse("Errore server");
+    const details = err instanceof Error ? { message: err.message, stack: err.stack, name: err.name } : String(err);
+    return new Response(JSON.stringify({ error: "Errore server", details }), { status: 500, headers: { "Content-Type": "application/json" } });
   }
 }
